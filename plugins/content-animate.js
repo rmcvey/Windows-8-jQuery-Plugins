@@ -3,10 +3,10 @@
 		var incoming = $(this),
 			direction = dir || 'enterContent',
 			params = option || null,
-			success_fn = fn_success || $.fn.noop,
-			error_fn = fn_error || $.fn.noop;
+			success_fn = fn_success || $.noop,
+			error_fn = fn_error || $.noop;
 		
-		WinJS.UI.Animation[dir](incoming, offset).done(
+		WinJS.UI.Animation[dir](incoming, params).done(
 			function completed(){
 				success_fn.apply(incoming, [incoming])
 			},
@@ -16,8 +16,8 @@
 		);
 		return this;
 	}
-	$.fn.enterContent(options, fn_success, fn_error){
-		if(this._util.is.callable(options)){
+	$.fn.enterContent = function(options, fn_success, fn_error){
+		if($.isFunction(options)){
 			fn_success = options;
 			fn_error = fn_success;
 			options = null;
@@ -26,8 +26,8 @@
 		}
 		return $(this).content('enterContent', options, fn_success, fn_error);
 	}
-	$.fn.exitContent(options, fn_success, fn_errors){
-		if(this._util.is.callable(options)){
+	$.fn.exitContent = function(options, fn_success, fn_errors){
+		if($.isFunction(options)){
 			fn_success = options;
 			fn_error = fn_success;
 			options = null;
